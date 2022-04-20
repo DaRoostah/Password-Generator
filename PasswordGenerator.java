@@ -2,10 +2,8 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class PasswordGenerator {
-    private static String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
-    private static String upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static String numbers = "1234567890";
-    private static String upperCaseNumbers = "!@#$%^&*()";
+    private static String allCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
+    
     public static void main(String[] args) {
         Random rand = new Random();
         Scanner sc = new Scanner(System.in);
@@ -16,10 +14,18 @@ public class PasswordGenerator {
 
     }
     public static String GeneratePassword(int characterNumber) {
+        Random rand = new Random();
         String password = "";
-        for(int i = 0;i != characterNumber;i++){
-            
+        for(int i = 0;i < characterNumber;i++) {
+            int getRandomChar = rand.nextInt(allCharacters.length());
+            password = allCharacters.substring(getRandomChar, getRandomChar+1);
         }
-        return password;
+        
+        for(int i = 0;i < 5; i++) {
+            String newPassword = password;
+            String oldPassword = newPassword;
+            newPassword = oldPassword.substring(i, i+1);
+        }
+        return newPassword;
     }
 }
