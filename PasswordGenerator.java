@@ -7,7 +7,6 @@ public class PasswordGenerator {
     private static String numberCharacters = "1234567890";
     private static String specialCharacters = "!@#$%^&*()";
     public static void main(String[] args) {
-        Random rand = new Random();
         Scanner sc = new Scanner(System.in);
         System.out.println("How many characters do you want?");
         String userInput = sc.nextLine();
@@ -19,20 +18,51 @@ public class PasswordGenerator {
           System.out.println(numOfPass+1 + ". " + GeneratePassword(characterNumber));
         }
 
+        sc.close();
     }
-    public static String GeneratePassword(int characterNumber) {
+    public static char getRandomCharacter() {
         Random rand = new Random();
+        char character = ' ';
         String[] characterChooser = new String[4];
-
-        
         characterChooser[0] = lowerCaseCharacters;
         characterChooser[1] = upperCaseCharacters;
         characterChooser[2] = numberCharacters;
         characterChooser[3] = specialCharacters;
+        int randNumber = rand.nextInt(characterChooser.length), randChar = rand.nextInt(characterChooser[randNumber].length());
+        character = characterChooser[randNumber].charAt(randChar);
+        return character;
+    }
+    public static char getSpecificRandomChar(int charactersList) {
+        Random rand = new Random();
+        char character = ' ';
+        String[] characterChooser = new String[4];
+        characterChooser[0] = lowerCaseCharacters;
+        characterChooser[1] = upperCaseCharacters;
+        characterChooser[2] = numberCharacters;
+        characterChooser[3] = specialCharacters;
+        int randChar = rand.nextInt(characterChooser[charactersList].length());
+        character = characterChooser[charactersList].charAt(randChar);
+        return character;
+    }
+
+    public static String GeneratePassword(int characterNumber) {
+        Random rand = new Random();
         String password = "";
         for(int passwordChar = 0; passwordChar < characterNumber; passwordChar++) {
-            int randNumber = rand.nextInt(characterChooser.length), randChar = rand.nextInt(characterChooser[randNumber].length());
-            password += characterChooser[randNumber].substring(randChar, randChar+1 );
+            password += getRandomCharacter();
+        }
+        return password;
+    }
+
+    public static String GeneratePasswordTwo(int characterNumber) {
+        Random rand = new Random();
+        String password = "";
+        for(int passwordChar = 0; passwordChar < characterNumber; passwordChar++) {
+            if(passwordChar==0)
+                password += getSpecificRandomChar(0);
+            if((passwordChar-1)%1==0) 
+                password += getSpecificRandomChar(0);
+            if((passwordChar-1))
         }
         return password;
     }
