@@ -15,22 +15,10 @@ public class PasswordGenerator {
         userInput = sc.nextLine();
         int pwNumber = Integer.parseInt(userInput);
         for(int numOfPass = 0; numOfPass < pwNumber;numOfPass++) {
-          System.out.println(numOfPass+1 + ". " + GeneratePassword(characterNumber));
+          System.out.println(numOfPass+1 + ". " + GeneratePasswordTwo(characterNumber));
         }
 
         sc.close();
-    }
-    public static char getRandomCharacter() {
-        Random rand = new Random();
-        char character = ' ';
-        String[] characterChooser = new String[4];
-        characterChooser[0] = lowerCaseCharacters;
-        characterChooser[1] = upperCaseCharacters;
-        characterChooser[2] = numberCharacters;
-        characterChooser[3] = specialCharacters;
-        int randNumber = rand.nextInt(characterChooser.length), randChar = rand.nextInt(characterChooser[randNumber].length());
-        character = characterChooser[randNumber].charAt(randChar);
-        return character;
     }
     public static char getSpecificRandomChar(int charactersList) {
         Random rand = new Random();
@@ -45,24 +33,16 @@ public class PasswordGenerator {
         return character;
     }
 
-    public static String GeneratePassword(int characterNumber) {
-        Random rand = new Random();
-        String password = "";
-        for(int passwordChar = 0; passwordChar < characterNumber; passwordChar++) {
-            password += getRandomCharacter();
-        }
-        return password;
-    }
-
     public static String GeneratePasswordTwo(int characterNumber) {
         Random rand = new Random();
         String password = "";
+        int intPWswitch = 0;
         for(int passwordChar = 0; passwordChar < characterNumber; passwordChar++) {
-            if(passwordChar==0)
-                password += getSpecificRandomChar(0);
-            if((passwordChar-1)%1==0) 
-                password += getSpecificRandomChar(0);
-            if((passwordChar-1))
+            password += getSpecificRandomChar(intPWswitch);
+            intPWswitch++;
+            if(intPWswitch == 4)
+                intPWswitch = 0;
+            
         }
         return password;
     }
