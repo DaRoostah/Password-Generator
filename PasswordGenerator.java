@@ -34,7 +34,6 @@ public class PasswordGenerator {
     }
 
     public static String GeneratePasswordTwo(int characterNumber) {
-        Random rand = new Random();
         String password = "";
         int intPWswitch = 0;
         for(int passwordChar = 0; passwordChar < characterNumber; passwordChar++) {
@@ -42,8 +41,20 @@ public class PasswordGenerator {
             intPWswitch++;
             if(intPWswitch == 4)
                 intPWswitch = 0;
-            
         }
-        return password;
+        return scrambleWord(password);
+    }
+
+    public static String scrambleWord(String password){
+        char[] oldPassword = password.toCharArray(), newPassword = password.toCharArray();
+        Random random = new Random();
+        int r = random.nextInt(oldPassword.length);
+        for(int i = 0;i <= r;i++){
+            newPassword[oldPassword.length -i-1] = oldPassword[i];
+        }
+        for (int j = r+1;j <= oldPassword.length -1;j++){
+            newPassword[j-r-1] = oldPassword[j];
+        }
+        return String.valueOf(newPassword);
     }
 }
