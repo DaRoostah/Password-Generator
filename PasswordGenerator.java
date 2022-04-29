@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class PasswordGenerator {
@@ -18,14 +20,21 @@ public class PasswordGenerator {
         System.out.println("How many passwords do you want printed out?");
         userInput = sc.nextLine();
         int pwNumber = Integer.parseInt(userInput);
-        String listofPasswords = "";
+        LinkedList<String> listofPasswords = new LinkedList<String>();
         for(int numOfPass = 0; numOfPass < pwNumber;numOfPass++) {
-          listofPasswords += numOfPass+1 + ". " + GeneratePasswordTwo(characterNumber) + "\n";
+          listofPasswords.add(numOfPass+1 + ". " + GeneratePasswordTwo(characterNumber) + "\n");
         }
-        System.out.println("Choose a password:\n" + listofPasswords);
-
+        System.out.println("Choose a password:\n" + listofPasswords.subList(0, listofPasswords.size()));
+        userInput = sc.nextLine();
+        int intUserInput = Integer.parseInt(userInput);
         editFile("test");
         sc.close();
+    }
+    public String toString() {
+        for(int i = 0;listofPasswords.size();i++) {
+            
+        }
+        return "";
     }
     public static char getSpecificRandomChar(int charactersList) {
         Random rand = new Random();
@@ -67,10 +76,10 @@ public class PasswordGenerator {
     
     public static void editFile(String addPassword) {
         try {
-            File myObj = new File("password.txt");
-            myObj.createNewFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("password.txt"));
-            writer.append(addPassword)
+            File ListofPasswords = new File("password.txt");
+            ListofPasswords.createNewFile();
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(ListofPasswords.getName(), true)));
+            writer.println(addPassword);
             writer.close();
           } catch (IOException e) {
             System.out.println("An error occurred.");
