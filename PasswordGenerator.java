@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class PasswordGenerator {
@@ -14,10 +18,13 @@ public class PasswordGenerator {
         System.out.println("How many passwords do you want printed out?");
         userInput = sc.nextLine();
         int pwNumber = Integer.parseInt(userInput);
+        String listofPasswords = "";
         for(int numOfPass = 0; numOfPass < pwNumber;numOfPass++) {
-          System.out.println(numOfPass+1 + ". " + GeneratePasswordTwo(characterNumber));
+          listofPasswords += numOfPass+1 + ". " + GeneratePasswordTwo(characterNumber) + "\n";
         }
+        System.out.println("Choose a password:\n" + listofPasswords);
 
+        editFile("test");
         sc.close();
     }
     public static char getSpecificRandomChar(int charactersList) {
@@ -56,5 +63,18 @@ public class PasswordGenerator {
             newPassword[j-r-1] = oldPassword[j];
         }
         return String.valueOf(newPassword);
+    }
+    
+    public static void editFile(String addPassword) {
+        try {
+            File myObj = new File("password.txt");
+            myObj.createNewFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("password.txt"));
+            writer.append(addPassword)
+            writer.close();
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
     }
 }
