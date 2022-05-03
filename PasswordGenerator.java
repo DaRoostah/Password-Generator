@@ -1,3 +1,8 @@
+/**
+ * Created by Sean Maschek
+ * 
+ * Purpose: To explore the different writer library
+**/
 import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,18 +29,31 @@ public class PasswordGenerator {
         for(int numOfPass = 0; numOfPass < pwNumber;numOfPass++) {
           listofPasswords.add(numOfPass+1 + ". " + GeneratePasswordTwo(characterNumber) + "\n");
         }
-        System.out.println("Choose a password:\n" + listofPasswords.subList(0, listofPasswords.size()));
+        System.out.println("\n" + getListofPasswords(listofPasswords) + "\nChoose a password:");
         userInput = sc.nextLine();
         int intUserInput = Integer.parseInt(userInput);
-        editFile("test");
+        editFile(selectPassword(listofPasswords, intUserInput));
         sc.close();
     }
-    public String toString() {
-        for(int i = 0;listofPasswords.size();i++) {
-            
+    
+    private static String selectPassword(LinkedList<String> ListofPasswords, int userInput) {
+        String selectedPassword = "";
+        for(int i = 0;i < ListofPasswords.size();i++) {
+            if(String.valueOf(userInput).equals(ListofPasswords.get(i).substring(0,1))) {
+                selectedPassword = ListofPasswords.get(i).substring(3,ListofPasswords.get(i).length());
+            }
         }
-        return "";
+        return selectedPassword;
     }
+
+    protected static String getListofPasswords(LinkedList<String> ListOfPasswords) {
+        String ListofPasswords = "";
+        for(String Passwords : ListOfPasswords) {
+            ListofPasswords += Passwords;
+        }
+        return ListofPasswords;
+    }
+
     public static char getSpecificRandomChar(int charactersList) {
         Random rand = new Random();
         char character = ' ';
